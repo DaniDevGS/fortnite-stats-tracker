@@ -1,0 +1,185 @@
+body{
+    font-family: sans-serif;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+.jugador-cart {
+    border: 2px solid black;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+#search-form {
+    max-width: 550px;
+    margin: 0 auto 2rem auto;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+#search-form input {
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    flex: 1; 
+    max-width: 350px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+#search-form input:focus {
+    border-color: #333;
+}
+
+#search-form button {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #222;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+#search-form button:hover {
+    background-color: #444;
+}
+
+#search-form button:active {
+    transform: scale(0.97);
+}
+
+.jugador-buscado {
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.jugadores-favoritos {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.jugadores-favoritos h2 {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+@media (min-width: 768px) {
+    .jugadores-favoritos {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.jugadores-favoritos .jugador-cart:only-child {
+    grid-column: 1 / -1;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.cart-principal {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+}
+
+.avatar img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 2px solid darkblue;
+    object-fit: cover;
+}
+
+.info-jugador h2, .info-jugador p {
+    margin: 0 0 0.5rem 0;
+}
+
+.stats-mini {
+    display: flex;
+    gap: 1rem;
+}
+
+.stats-grid {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid #333;
+    padding-top: 1rem;
+}
+
+
+#favorite-button button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+#favorite-button button:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+#favorite-button button:active {
+    transform: scale(0.9);
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    color: #666;
+    font-size: 26px;
+    transition: font-variation-settings 0.2s ease, color 0.2s ease, transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.favorito-activo .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+    color: #face15;
+    animation: tiktok-pop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.4);
+    filter: drop-shadow(0 2px 6px rgba(250, 206, 21, 0.4));
+}
+
+@keyframes tiktok-pop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.35);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
