@@ -1,7 +1,16 @@
+import { FortnitePlayer } from "./FortnitePlayer.js";
+
+const input = document.querySelector("#nametag-input");
+const form = document.querySelector("#search-form");
+const contenedorJugador = document.querySelector(".jugador-buscado");
+const contenedorJugadorFavorito = document.querySelector(".jugadores-favoritos");
+
+let skinsCache = null;
+
 async function getFortniteStats(namePlayer) {
     const API_KEY = (typeof CONFIG !== 'undefined' && CONFIG.FORTNITE_API_KEY) 
-    ? CONFIG.FORTNITE_API_KEY 
-    : 'TU_API_KEY_AQUI';
+        ? CONFIG.FORTNITE_API_KEY 
+        : 'TU_API_KEY_AQUI';
 
     const respuesta = await fetch(
         `https://fortnite-api.com/v2/stats/br/v2?name=${namePlayer}`,
@@ -21,8 +30,6 @@ async function getFortniteStats(namePlayer) {
     return datosFortnite;
 }
 
-let skinsCache = null;
-
 async function getRandomSkin() {
     try {
         if (!skinsCache) {
@@ -33,7 +40,9 @@ async function getRandomSkin() {
             const datos = await respuesta.json();
 
             const items = datos.data || [];
-            skinsCache = items.filter(item => item.type?.value === 'outfit' || item.type?.displayValue?.toLowerCase() === 'outfit');
+            skinsCache = items.filter(item => 
+                item.type?.value === 'outfit' || item.type?.displayValue?.toLowerCase() === 'outfit'
+            );
         }
 
         if (!skinsCache || skinsCache.length === 0) return null;
@@ -41,63 +50,12 @@ async function getRandomSkin() {
         const skinAleatoria = skinsCache[Math.floor(Math.random() * skinsCache.length)];
         
         return skinAleatoria.images?.icon || skinAleatoria.images?.featured || skinAleatoria.images?.smallIcon || null;
+
     } catch (error) {
         console.error("Error al obtener la skin:", error);
         return null; 
     }
 }
-
-class FornitePlayer 
-{
-    constructor(stats, skinUrl = null) 
-    {
-        this.avatarSkin = skinUrl || 'https://fortnite.gg/img/items/52/gradient.jpg?12';
-
-        this.cuentaNombre = stats.data.account.name;
-        this.nivelPaseBatalla = stats.data.battlePass.level;
-        this.eliminaciones = stats.data.stats.all.overall.kills;
-        this.kd = stats.data.stats.all.overall.kd;
-        this.muertes = stats.data.stats.all.overall.deaths;
-        this.partidas = stats.data.stats.all.overall.matches;
-        this.ultimaModificacion = this.formatearFecha(stats.data.stats.all.overall.lastModified);
-        this.horasJugadas = this.formatearTiempoJugado(stats.data.stats.all.overall.minutesPlayed);
-        this.tasaVictorias = stats.data.stats.all.overall.winRate;
-        this.victorias = stats.data.stats.all.overall.wins;
-    }
-
-    formatearFecha(fechaUTC) 
-    {
-        if (!fechaUTC) return 'No disponible';
-
-        const fecha = new Date(fechaUTC);
-        
-        return fecha.toLocaleString('es-VE', {
-            timeZone: 'America/Caracas',
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: true
-        });
-    }
-
-    formatearTiempoJugado(minutos) 
-    {
-        if (!minutos || typeof minutos !== 'number') return '0 h';
-
-        const horas = Math.floor(minutos / 60);
-        const minsRestantes = minutos % 60;
-
-        return minsRestantes > 0 ? `${horas} h ${minsRestantes} min` : `${horas} h`;
-    }
-}
-
-const input = document.querySelector("#nametag-input");
-const form = document.querySelector("#search-form");
-const contenedorJugador = document.querySelector(".jugador-buscado");
-const contenedorJugadorFavorito = document.querySelector(".jugadores-favoritos");
 
 function mostrarJugadoresFavoritos(listaJugadoresFavoritos) {
     contenedorJugadorFavorito.innerHTML = "";
@@ -208,7 +166,7 @@ form.addEventListener("submit", async (evento) => {
     const namePlayer = input.value.trim();
     if (!namePlayer) return;
 
-    contenedorJugador.innerHTML = "<p>Buscando estadísticas del jugador...</p>";
+    contenedorJugador.innerHTML = "<p>Buscando estadísticas del jugador....</p>";
 
     let skinPromise;
     if (namePlayer.toUpperCase() === "GHOSTSCP141") {
@@ -220,7 +178,7 @@ form.addEventListener("submit", async (evento) => {
     try {
         const [stats, skinUrl] = await Promise.all([getFortniteStats(namePlayer), skinPromise]);
         
-        const player = new FornitePlayer(stats, skinUrl);
+        const player = new FortnitePlayer(stats, skinUrl);
         mostrarStatsJugador(player);
         input.value = "";
 
