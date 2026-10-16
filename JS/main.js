@@ -166,7 +166,16 @@ form.addEventListener("submit", async (evento) => {
     const namePlayer = input.value.trim();
     if (!namePlayer) return;
 
-    contenedorJugador.innerHTML = "<p>Buscando estadísticas del jugador....</p>";
+    contenedorJugador.innerHTML = `
+    <div class="loader-wrapper">
+        <div class="loader">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+    </div>
+    `;
 
     let skinPromise;
     if (namePlayer.toUpperCase() === "GHOSTSCP141") {
@@ -190,7 +199,29 @@ form.addEventListener("submit", async (evento) => {
     }
 });
 
-window.addEventListener("DOMContentLoaded", ()=> {
-    let favoritosIniciales = JSON.parse(localStorage.getItem("Jugadores favoritos")) || [];
-    mostrarJugadoresFavoritos(favoritosIniciales);
+async function actualizarStatsFavoritos() {
+    let favoritosGuardados = JSON.parse(localStorage.getItem("Jugadores favoritos")) || [];
+
+    if (favoritosGuardados.length === 0) return [];
+
+    const favoritosActualizados = await Promise.all(
+        favoritosGuardados.map(async (jugadorGuardado) => {
+            try {
+                const statsActualizadas = await getFortniteStats(jugadorGuardado.cuentaNombre);
+                const jugadorActualizado = new FortnitePlayer(statsActualizadas, jugadorGuardado.avatarSkin);
+                return jugadorActualizado;
+            } catch (error) {
+                console.warn(`No se pudo actualizar a ${jugadorGuardado.cuentaNombre}: ${error.message}`);
+                return jugadorGuardado;
+            }
+        })
+    );
+
+    localStorage.setItem("Jugadores favoritos", JSON.stringify(favoritosActualizados));
+    return favoritosActualizados;
+}
+
+window.addEventListener("DOMContentLoaded", async () => {
+    let favoritosActualizados = await actualizarStatsFavoritos();
+    mostrarJugadoresFavoritos(favoritosActualizados);
 })
