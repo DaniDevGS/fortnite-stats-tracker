@@ -96,6 +96,24 @@ function mostrarJugadoresFavoritos(listaJugadoresFavoritos) {
             </ul>
         `;
 
+        const botonFavorito = cartFavoritos.querySelector("#favorite-button button");
+
+        botonFavorito.addEventListener("click", () => {
+            let listaActual = JSON.parse(localStorage.getItem("Jugadores favoritos")) || [];
+
+            listaActual = listaActual.filter(jugador => jugador.cuentaNombre !== player.cuentaNombre);
+            alert(`¡${player.cuentaNombre} fue eliminado de favoritos!`);
+
+            localStorage.setItem("Jugadores favoritos", JSON.stringify(listaActual));
+            mostrarJugadoresFavoritos(listaActual);
+
+            const botonBuscado = contenedorJugador.querySelector("#favorite-button button");
+            const nombreBuscado = contenedorJugador.querySelector("#jugador-nombre");
+            if (botonBuscado && nombreBuscado && nombreBuscado.textContent === player.cuentaNombre) {
+                botonBuscado.classList.remove("favorito-activo");
+            }
+        });
+
         contenedorJugadorFavorito.append(cartFavoritos);
     }
 }
