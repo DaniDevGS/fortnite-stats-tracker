@@ -1,52 +1,50 @@
 # Fortnite Stats Tracker
 
-Una aplicación web interactiva desarrollada con **Vanilla JavaScript** para consultar y guardar estadísticas de jugadores de Fortnite Battle Royale en tiempo real.
+An interactive web application built with **Vanilla JavaScript** to search for and save real-time player statistics for Fortnite Battle Royale.
 
-Proyecto final desarrollado como parte del programa de formación de **Academos** en colaboración con el programa de **Cisco Networking Academy** en los cursos JavaScript Essentials 1 & 2.
-
-
-## Características
-
-- **Consulta en tiempo real:** Conexión con la API pública de Fortnite (`Fortnite-API.com`) para obtener estadísticas generales.
-- **Avatares dinámicos:** Selección aleatoria de skins de cosméticos mediante llamadas asíncronas concurrentes.
-- **Lista de favoritos persistente:** Guardado y eliminación de jugadores en `localStorage` con renderizado reactivo en cuadrícula responsive.
-- **POO con JavaScript moderno:** Modelado de datos a través de la clase `FornitePlayer` con métodos auxiliares para formateo de fechas locales y cálculo de horas jugadas.
+Final project developed as part of the **Academos** training program in collaboration with the **Cisco Networking Academy** program for the JavaScript Essentials 1 & 2 courses.
 
 
-## Tecnologías Utilizadas
+## Features
 
-- **JavaScript (ES6+)**: Clases, `async/await`, `fetch`, `Promise.all` y manipulación del DOM.
-- **HTML5 & CSS3**: Estructura semántica, diseño con CSS Grid y transiciones.
-- **Google Material Symbols**: Iconografía interactiva con soporte para estados variables (`bookmark`).
-- **API Externa**: [Fortnite-API.com](https://fortnite-api.com/).
+- **Real-Time Queries:** Connection to the public Fortnite API (`Fortnite-API.com`) to retrieve overall statistics.
+- **Dynamic Avatars:** Random cosmetic skin selection using concurrent asynchronous calls.
+- **Persistent Favorites List:** Save and remove players using `localStorage` with reactive rendering in a responsive grid layout.
+- **Modern OOP with JavaScript:** Data modeling using the `FornitePlayer` class with helper methods for local date formatting and total played hours calculation.
 
 
-## Configuración e Instalación
-No requiere herramientas de compilación ni dependencias externas.
+## Built With
 
-### 1. **Clonar el repositorio:**
+- **JavaScript (ES6+)**: Classes, `async/await`, `fetch`, `Promise.all`, and DOM manipulation.
+- **HTML5 & CSS3**: Semantic structure, CSS Grid layout, and transitions.
+- **Google Material Symbols**: Interactive icons supporting variable states (`bookmark`).
+- **External API**: [Fortnite-API.com](https://fortnite-api.com/).
+
+
+## Setup and Installation
+
+No build tools or external dependencies required.
+
+### 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/DaniDevGS/fortnite-stats-tracker.git
-   cd fortnite-stats-tracker
-   ```
----
+   git clone [https://github.com/DaniDevGS/fortnite-stats-tracker.git](https://github.com/DaniDevGS/fortnite-stats-tracker.git)
+   cd fortnite-stats-tracker|
+```
 
+### 2. Get your API Key:
 
-### 2. **Obtener tu API Key:**
-   - Ingresa a [Fortnite-API.com](https://fortnite-api.com/) e inicia sesión o regístrate gratis para generar tu API Key personal.
----
+- Go to Fortnite-API.com and log in or sign up for free to generate your personal API Key.
 
-### 3. **Configurar las credenciales:**
-   - Duplica o renombra el archivo `JS/config.example.js` como `JS/config.js`.
-   - Abre `JS/config.js` y reemplaza `"TU_API_KEY_AQUI"` por tu clave:
-     ```javascript
-     const CONFIG = {
-         FORTNITE_API_KEY: "TU_API_KEY_AQUI"
-     };
-     ```
----
+### 3. Configure credentials:
 
-### 4. **Ejecutar la aplicación:**
-   Abre el archivo `index.html` en tu navegador o mediante la extensión **Live Server** en Visual Studio Code.
+- Duplicate or rename the JS/config.example.js file as JS/config.js.
+- Open JS/config.js and replace "YOUR_API_KEY_HERE" with your key:
 
----
+```javascript
+const CONFIG = {
+    FORTNITE_API_KEY: "YOUR_API_KEY_HERE"
+};
+```
+
+### 4. Run the application:
+Open the index.html file in your browser or use the Live Server extension in Visual Studio Code.
