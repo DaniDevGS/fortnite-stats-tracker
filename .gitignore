@@ -2,3 +2,5 @@ js/config.js
 
 # Engram AI agent memory
 .engram/
+
+AGENTS.md
